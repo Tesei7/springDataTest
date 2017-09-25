@@ -1,5 +1,6 @@
 package hello;
 
+import com.querydsl.core.types.Predicate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 
 @SpringBootApplication
@@ -26,10 +28,10 @@ public class Application {
     private void init() {
         Address address1 = addressRepository.save(new Address("USA", "LA"));
         Address address2 = addressRepository.save(new Address("USA", "SanFran"));
-        Address address3 = addressRepository.save(new Address("USA", "Chi"));
-        Address address4 = addressRepository.save(new Address("UK", "London"));
-        Address address5 = addressRepository.save(new Address("Russia", "Saint-Petersburg"));
-        Address address6 = addressRepository.save(new Address("Canada", "Toronto"));
+        Address address3 = addressRepository.save(new Address("UK", "London"));
+        Address address4 = addressRepository.save(new Address("Russia", "Saint-Petersburg"));
+        Address address5 = addressRepository.save(new Address("Canada", "Toronto"));
+        Address address6 = addressRepository.save(new Address("USA", "Chi"));
 
         customerRepository.save(new Customer("Jack", "Bauer").addAddress(address1));
         customerRepository.save(new Customer("Chloe", "O'Brian").addAddress(address2));
@@ -43,8 +45,12 @@ public class Application {
         return (args) -> {
             init();
             query("All Customers", customerRepository::findAll);
-//            query("findByAddressesCountry", () -> customerRepository.findByAddressesCountry("USA"));
-            query("findByAddressesCountry", () -> customerRepository.findByAddressesCountry("USA"));
+            query("findTop1ByAddressesCountry", () -> customerRepository.findTop1ByAddressesCountry("USA"));
+            queryOne("findTop1ByAddressesCity", () -> customerRepository.findTop1ByAddressesCity("Moscow"));
+
+            Predicate predicate = user.firstname.equalsIgnoreCase("dave")
+                    .and(user.lastname.startsWithIgnoreCase("mathews"));
+            queryPredicate("findByPredicate", predicate);
         };
     }
 
@@ -52,6 +58,25 @@ public class Application {
         log.info(label);
         for (Customer customer : supplier.get()) {
             log.info(customer.toString());
+        }
+        log.info("");
+    }
+
+    private void queryPredicate(String label, Predicate predicate) {
+        log.info(label);
+        for (Customer customer : customerRepository.findAll(predicate)) {
+            log.info(customer.toString());
+        }
+        log.info("");
+    }
+
+    private void queryOne(String label, Supplier<Optional<Customer>> supplier) {
+        log.info(label);
+        Optional<Customer> optional = supplier.get();
+        if (optional.isPresent()) {
+            log.info(optional.get().toString());
+        } else {
+            log.info("No results");
         }
         log.info("");
     }
