@@ -1,6 +1,8 @@
 package hello;
 
+//import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.ListPath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +50,9 @@ public class Application {
             query("findTop1ByAddressesCountry", () -> customerRepository.findTop1ByAddressesCountry("USA"));
             queryOne("findTop1ByAddressesCity", () -> customerRepository.findTop1ByAddressesCity("Moscow"));
 
-            Predicate predicate = user.firstname.equalsIgnoreCase("dave")
-                    .and(user.lastname.startsWithIgnoreCase("mathews"));
+            QCustomer customer = QCustomer.customer;
+            Predicate predicate = customer.firstName.equalsIgnoreCase("david")
+                    .and(customer.lastName.startsWithIgnoreCase("palmer"));
             queryPredicate("findByPredicate", predicate);
         };
     }

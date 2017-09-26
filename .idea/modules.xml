@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/springDataTest.iml" filepath="$PROJECT_DIR$/.idea/modules/springDataTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/springDataTest_generated.iml" filepath="$PROJECT_DIR$/.idea/modules/springDataTest_generated.iml" group="springDataTest" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/springDataTest_main.iml" filepath="$PROJECT_DIR$/.idea/modules/springDataTest_main.iml" group="springDataTest" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/springDataTest_test.iml" filepath="$PROJECT_DIR$/.idea/modules/springDataTest_test.iml" group="springDataTest" />
     </modules>
