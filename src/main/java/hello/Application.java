@@ -1,8 +1,6 @@
 package hello;
 
-//import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Predicate;
-import com.querydsl.core.types.dsl.ListPath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +8,15 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.Optional;
 import java.util.function.Supplier;
 
 @SpringBootApplication
+@EnableWebMvc
+@EnableSpringDataWebSupport
 public class Application {
 
     private static final Logger log = LoggerFactory.getLogger(Application.class);
