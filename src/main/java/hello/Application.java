@@ -50,6 +50,7 @@ public class Application {
             init();
             query("All Customers", customerRepository::findAll);
             query("findTop1ByAddressesCountry", () -> customerRepository.findTop1ByAddressesCountry("USA"));
+            query("findByName", () -> customerRepository.findByName("Jack"));
             queryOne("findTop1ByAddressesCity", () -> customerRepository.findTop1ByAddressesCity("Moscow"));
 
             QCustomer customer = QCustomer.customer;
