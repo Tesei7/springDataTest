@@ -3,9 +3,11 @@ package hello;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,4 +25,8 @@ public interface CustomerRepository extends CrudRepository<Customer, Long>, Quer
 
     @Query("select c from #{#entityName} c where c.firstName like ?1 or c.lastName like ?1")
     List<Customer> findByName(String firstName, Sort sort);
+
+    @Modifying(clearAutomatically = true)
+    @Query("update #{#entityName} c set c.firstName = :firstName where c.lastName = :lastName")
+    void setFirstNameByLastName(@Param("firstName") String firstName, @Param("lastName") String lastName);
 }

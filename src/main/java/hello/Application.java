@@ -25,6 +25,8 @@ public class Application {
     private CustomerRepository customerRepository;
     @Autowired
     private AddressRepository addressRepository;
+    @Autowired
+    private CustomerService customerService;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class);
@@ -50,14 +52,19 @@ public class Application {
         return (args) -> {
             init();
             query("All Customers", customerRepository::findAll);
-            query("findTop1ByAddressesCountry", () -> customerRepository.findTop1ByAddressesCountry("USA"));
-            query("findByName", () -> customerRepository.findByName("%a%", new Sort(Sort.Direction.DESC, "lastName")));
-            queryOne("findTop1ByAddressesCity", () -> customerRepository.findTop1ByAddressesCity("Moscow"));
+//            query("findTop1ByAddressesCountry", () -> customerRepository.findTop1ByAddressesCountry("USA"));
+//            query("findByName", () -> customerRepository.findByName("%a%", new Sort(Sort.Direction.DESC, "lastName")));
+//            queryOne("findTop1ByAddressesCity", () -> customerRepository.findTop1ByAddressesCity("Moscow"));
 
-            QCustomer customer = QCustomer.customer;
-            Predicate predicate = customer.firstName.equalsIgnoreCase("david")
-                    .and(customer.lastName.startsWithIgnoreCase("palmer"));
-            queryPredicate("findByPredicate", predicate);
+            log.info("=== setFirstNameByLastName ===\n");
+            customerService.setFirstNameByLastName("NEW NAME", "Bauer");
+
+            query("All Customers", customerRepository::findAll);
+
+//            QCustomer customer = QCustomer.customer;
+//            Predicate predicate = customer.firstName.equalsIgnoreCase("david")
+//                    .and(customer.lastName.startsWithIgnoreCase("palmer"));
+//            queryPredicate("findByPredicate", predicate);
         };
     }
 
