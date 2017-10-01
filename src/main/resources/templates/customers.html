@@ -5,6 +5,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<p th:text="'Customer: ' + ${customer}"/>
+<table>
+    <tr th:each="customer : ${customers}">
+        <td th:text="${customer.toString()}">customer</td>
+    </tr>
+</table>
 </body>
 </html>

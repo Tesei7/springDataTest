@@ -1,6 +1,7 @@
 package hello;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CustomerController {
 
     @Autowired
-    CustomerRepository repository;
+    private CustomerRepository repository;
 
     @RequestMapping("/{id}")
     public String customer(@PathVariable("id") Customer customer, Model model) {
@@ -22,7 +23,8 @@ public class CustomerController {
 
     @RequestMapping
     public String customers(Model model, Pageable pageable) {
-        model.addAttribute("customers", repository.findAll(pageable));
+        Page<Customer> customers = repository.findAll(pageable);
+        model.addAttribute("customers", customers);
         return "customers";
     }
 }

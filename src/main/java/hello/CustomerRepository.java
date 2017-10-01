@@ -1,5 +1,6 @@
 package hello;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.data.repository.CrudRepository;
@@ -16,5 +17,5 @@ public interface CustomerRepository extends CrudRepository<Customer, Long>, Quer
 
     Future<Customer> findByLastName(String lastName);
 
-    List<Customer> findAll(Pageable pageable);
+    Page<Customer> findAll(Pageable pageable);
 }
