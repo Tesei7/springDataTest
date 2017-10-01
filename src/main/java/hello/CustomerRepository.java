@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Future;
 
+@Transactional(readOnly = true)
 public interface CustomerRepository extends CrudRepository<Customer, Long>, QueryDslPredicateExecutor<Customer> {
 
     List<Customer> findTop1ByAddressesCountry(String country);

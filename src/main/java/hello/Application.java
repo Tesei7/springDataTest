@@ -55,10 +55,10 @@ public class Application {
 //            query("findByName", () -> customerRepository.findByName("%a%", new Sort(Sort.Direction.DESC, "lastName")));
 //            queryOne("findTop1ByAddressesCity", () -> customerRepository.findTop1ByAddressesCity("Moscow"));
 
-//            log.info("=== setFirstNameByLastName ===\n");
-//            customerService.setFirstNameByLastName("NEW NAME", "Bauer");
+            log.info("=== setFirstNameByLastName ===\n");
+            customerService.setFirstNameByLastName("NEW NAME", "Bauer");
 
-//            query("All Customers", customerRepository::findAll);
+            query("All Customers", customerRepository::findAll);
 
 //            log.info("=== deleteByLastName ===\n");
 //            customerRepository.deleteByLastName("Bauer");
