@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -50,7 +51,7 @@ public class Application {
             init();
             query("All Customers", customerRepository::findAll);
             query("findTop1ByAddressesCountry", () -> customerRepository.findTop1ByAddressesCountry("USA"));
-            query("findByName", () -> customerRepository.findByName("%a%"));
+            query("findByName", () -> customerRepository.findByName("%a%", new Sort(Sort.Direction.DESC, "lastName")));
             queryOne("findTop1ByAddressesCity", () -> customerRepository.findTop1ByAddressesCity("Moscow"));
 
             QCustomer customer = QCustomer.customer;

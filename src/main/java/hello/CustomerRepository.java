@@ -2,6 +2,7 @@ package hello;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.data.repository.CrudRepository;
@@ -20,6 +21,6 @@ public interface CustomerRepository extends CrudRepository<Customer, Long>, Quer
 
     Page<Customer> findAll(Pageable pageable);
 
-    @Query("select c from Customer c where c.firstName like ?1 or c.lastName like ?1")
-    List<Customer> findByName(String firstName);
+    @Query("select c from #{#entityName} c where c.firstName like ?1 or c.lastName like ?1")
+    List<Customer> findByName(String firstName, Sort sort);
 }
