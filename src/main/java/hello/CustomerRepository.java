@@ -31,6 +31,8 @@ public interface CustomerRepository extends CrudRepository<Customer, Long>, Quer
     @Query("update #{#entityName} c set c.firstName = :firstName where c.lastName = :lastName")
     void setFirstNameByLastName(@Param("firstName") String firstName, @Param("lastName") String lastName);
 
+    List<CustomerProjection> findByFirstName(String firstName);
+
     @Transactional
     void deleteByLastName(String lastName);
 }

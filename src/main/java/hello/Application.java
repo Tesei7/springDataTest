@@ -8,7 +8,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -56,26 +55,36 @@ public class Application {
 //            query("findByName", () -> customerRepository.findByName("%a%", new Sort(Sort.Direction.DESC, "lastName")));
 //            queryOne("findTop1ByAddressesCity", () -> customerRepository.findTop1ByAddressesCity("Moscow"));
 
-            log.info("=== setFirstNameByLastName ===\n");
-            customerService.setFirstNameByLastName("NEW NAME", "Bauer");
+//            log.info("=== setFirstNameByLastName ===\n");
+//            customerService.setFirstNameByLastName("NEW NAME", "Bauer");
 
-            query("All Customers", customerRepository::findAll);
+//            query("All Customers", customerRepository::findAll);
 
-            log.info("=== deleteByLastName ===\n");
-            customerRepository.deleteByLastName("Bauer");
+//            log.info("=== deleteByLastName ===\n");
+//            customerRepository.deleteByLastName("Bauer");
 
-            query("All Customers", customerRepository::findAll);
+//            query("All Customers", customerRepository::findAll);
 
 //            QCustomer customer = QCustomer.customer;
 //            Predicate predicate = customer.firstName.equalsIgnoreCase("david")
 //                    .and(customer.lastName.startsWithIgnoreCase("palmer"));
 //            queryPredicate("findByPredicate", predicate);
+
+            queryNamesOnly("Names Only", () -> customerRepository.findByFirstName("Jack"));
         };
     }
 
     private void query(String label, Supplier<Iterable<Customer>> supplier) {
         log.info(label);
         for (Customer customer : supplier.get()) {
+            log.info(customer.toString());
+        }
+        log.info("");
+    }
+
+    private void queryNamesOnly(String label, Supplier<Iterable<CustomerProjection>> supplier) {
+        log.info(label);
+        for (CustomerProjection customer : supplier.get()) {
             log.info(customer.toString());
         }
         log.info("");
