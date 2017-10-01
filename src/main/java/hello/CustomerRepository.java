@@ -20,6 +20,6 @@ public interface CustomerRepository extends CrudRepository<Customer, Long>, Quer
 
     Page<Customer> findAll(Pageable pageable);
 
-    @Query("select c from Customer c where c.firstName = ?1 or c.lastName = ?1")
+    @Query("select c from Customer c where c.firstName like ?1 or c.lastName like ?1")
     List<Customer> findByName(String firstName);
 }
