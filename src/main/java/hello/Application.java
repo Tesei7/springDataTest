@@ -61,6 +61,11 @@ public class Application {
 
             query("All Customers", customerRepository::findAll);
 
+            log.info("=== deleteByLastName ===\n");
+            customerRepository.deleteByLastName("Bauer");
+
+            query("All Customers", customerRepository::findAll);
+
 //            QCustomer customer = QCustomer.customer;
 //            Predicate predicate = customer.firstName.equalsIgnoreCase("david")
 //                    .and(customer.lastName.startsWithIgnoreCase("palmer"));

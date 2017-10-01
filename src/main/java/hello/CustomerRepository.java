@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,4 +30,7 @@ public interface CustomerRepository extends CrudRepository<Customer, Long>, Quer
     @Modifying(clearAutomatically = true)
     @Query("update #{#entityName} c set c.firstName = :firstName where c.lastName = :lastName")
     void setFirstNameByLastName(@Param("firstName") String firstName, @Param("lastName") String lastName);
+
+    @Transactional
+    void deleteByLastName(String lastName);
 }
