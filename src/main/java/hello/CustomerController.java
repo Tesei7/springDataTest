@@ -1,8 +1,10 @@
 package hello;
 
+import com.querydsl.core.types.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -38,10 +40,17 @@ public class CustomerController {
         return "customers";
     }
 
+    /*http://localhost:8080/customer/qdsl?addresses.country=USA*/
+    @RequestMapping("/qdsl")
+    public String customersQdsl(Model model, @QuerydslPredicate(root = Customer.class) Predicate predicate) {
+        Iterable<Customer> customers = repository.findAll(predicate);
+        model.addAttribute("customers", customers);
+        return "customers";
+    }
+
     @RequestMapping(value = "/hateoas", method = RequestMethod.GET, produces = {APPLICATION_JSON_VALUE})
     HttpEntity<PagedResources<Customer>> hateoas(Pageable pageable,
                                                  PagedResourcesAssembler assembler) {
-
         Page<Customer> customers = repository.findAll(pageable);
         return new ResponseEntity<>(assembler.toResource(customers), HttpStatus.OK);
     }
