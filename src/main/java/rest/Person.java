@@ -1,7 +1,10 @@
 package rest;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Person {
@@ -15,6 +18,8 @@ public class Person {
     private String lastName;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+    @LastModifiedDate
+    private Date date;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;
@@ -49,6 +54,14 @@ public class Person {
 
     public void setVersion(Long version) {
         this.version = version;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public Address getAddress() {
