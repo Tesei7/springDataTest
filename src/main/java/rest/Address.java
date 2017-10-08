@@ -10,7 +10,7 @@ public class Address {
     private String country;
     private String city;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id")
     private Person person;
 
