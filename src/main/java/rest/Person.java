@@ -1,6 +1,6 @@
 package rest;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 
@@ -12,7 +12,7 @@ public class Person {
 
     private String firstName;
     private String lastName;
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @OneToOne(cascade = CascadeType.ALL)
