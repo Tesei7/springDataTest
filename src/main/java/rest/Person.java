@@ -1,5 +1,7 @@
 package rest;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,6 +12,9 @@ public class Person {
 
     private String firstName;
     private String lastName;
+    @JsonIgnore
+    private String password;
+
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 
@@ -27,6 +32,14 @@ public class Person {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Address getAddress() {
