@@ -12,6 +12,7 @@ import java.util.List;
 @RepositoryRestResource(excerptProjection = InlineAddress.class, collectionResourceRel = "people", path = "people")
 public interface PersonRepository extends PagingAndSortingRepository<Person, Long> {
 
+    @RestResource(exported = false)
     List<Person> findByLastName(@Param("name") String name);
 
     @RestResource(path = "nameStartsWith", rel = "nameStartsWith")
