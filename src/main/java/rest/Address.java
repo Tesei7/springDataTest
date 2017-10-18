@@ -10,8 +10,7 @@ public class Address {
     private String country;
     private String city;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id")
+    @OneToOne(mappedBy = "address")
     private Person person;
 
     protected Address() {
@@ -39,7 +38,6 @@ public class Address {
                 "id=" + id +
                 ", country='" + country + '\'' +
                 ", city='" + city + '\'' +
-                ", person=" + person +
                 '}';
     }
 }

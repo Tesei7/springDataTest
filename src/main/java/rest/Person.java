@@ -2,6 +2,7 @@ package rest;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -22,6 +23,8 @@ public class Person {
     private Date date;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
+    @RestResource(path = "personAddress", rel = "address")
     private Address address;
 
     public String getFirstName() {
