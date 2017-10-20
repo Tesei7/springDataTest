@@ -6,6 +6,7 @@ import org.springframework.data.rest.core.annotation.RestResource;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Person {
@@ -26,6 +27,9 @@ public class Person {
     @JoinColumn(name = "address_id")
     @RestResource(path = "personAddress", rel = "address")
     private Address address;
+
+    @OneToMany(mappedBy = "person")
+    private List<Book> books;
 
     public String getFirstName() {
         return firstName;
@@ -73,6 +77,14 @@ public class Person {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 
     @Override
