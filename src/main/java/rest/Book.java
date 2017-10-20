@@ -1,6 +1,7 @@
 package rest;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Book {
@@ -12,6 +13,8 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "person_id")
     private Person person;
+    @ManyToMany(mappedBy = "books")
+    private List<Author> authors;
 
     Book() {
     }
@@ -38,6 +41,14 @@ public class Book {
 
     public void setPerson(Person person) {
         this.person = person;
+    }
+
+    public List<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
     }
 
     @Override
