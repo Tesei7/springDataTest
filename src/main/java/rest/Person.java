@@ -31,6 +31,13 @@ public class Person {
     @OneToMany(mappedBy = "person")
     private List<Book> books;
 
+    protected Person(){}
+
+    public Person(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     public String getFirstName() {
         return firstName;
     }
